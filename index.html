@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACCUEIL | Bosscoaching</title>
+  <meta name="description" content="Boss Coaching accompagne les dirigeants, équipes et organisations pour transformer le chaos en clarté, prendre les bonnes décisions et obtenir des résultats." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --card:    #141414;
+      --border:  #222222;
+      --gold:    #C8A96E;
+      --gold-dk: #A8893E;
+      --white:   #FFFFFF;
+      --muted:   #888888;
+      --text:    #D4D4D4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.5rem 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://static.wixstatic.com/media/0ad256_68e5c42614404a1dba2fa052c795c501~mv2.png/v1/fill/w_980,h_552,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/ChatGPT%20Image%20Aug%2023%2C%202026%2C%2008_36_12%20PM.png');
+      background-size: cover;
+      background-position: center top;
+      filter: brightness(0.25);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 820px;
+      animation: fadeUp 1s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-content { animation: none; }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      padding: 0.85rem 2.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-dk); }
+
+    /* ── PILLARS ── */
+    .pillars {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pillar {
+      flex: 1;
+      max-width: 320px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .pillar:last-child { border-right: none; }
+
+    .pillar-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.06em;
+    }
+
+    .pillar-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SECTIONS COMMONS ── */
+    section { padding: 6rem 4rem; }
+
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── À QUI ── */
+    .audience {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .audience .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .audience img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      filter: grayscale(40%);
+    }
+
+    .audience-text p {
+      margin-top: 1rem;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* ── MISSION ── */
+    .mission .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .mission-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.4;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.5rem;
+    }
+
+    .mission-body p { font-size: 0.95rem; line-height: 1.85; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-header p {
+      max-width: 520px;
+      margin: 0.75rem auto 0;
+      font-size: 0.95rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .service-card {
+      background: var(--card);
+      padding: 2.5rem 2rem;
+      transition: background 0.2s;
+    }
+
+    .service-card:hover { background: #1c1c1c; }
+
+    .service-icon {
+      width: 36px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      margin-top: 0.5rem;
+    }
+
+    .service-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .service-link:hover { border-color: var(--gold); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials .section-inner { text-align: center; }
+
+    .testimonials h2 { margin-bottom: 3rem; }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem 1.75rem;
+      text-align: left;
+    }
+
+    .testi-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .testi-author {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .cta-section h2 { margin-bottom: 0.75rem; }
+    .cta-section p { margin-bottom: 2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand .nav-logo { display: block; margin-bottom: 1rem; font-size: 1.1rem; }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col li { margin-bottom: 0.5rem; }
+
+    .footer-col a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1080px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── HAMBURGER MOBILE ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 4rem 1.5rem; }
+
+      .audience .section-inner,
+      .mission .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .audience img { aspect-ratio: 16/9; }
+
+      .pillars { flex-direction: column; }
+      .pillar { border-right: none; border-bottom: 1px solid var(--border); max-width: 100%; }
+      .pillar:last-child { border-bottom: none; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .testi-grid { grid-template-columns: 1fr; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+      footer { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Boss<span>Coaching</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Accueil</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">À propos</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Contact</a>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Coaching exécutif · Stratégie · Leadership</p>
+      <h1>Problèmes complexes,<br>solutions simples.</h1>
+      <p>Boss Coaching accompagne les dirigeants, équipes et organisations pour transformer le chaos en clarté, prendre les bonnes décisions et obtenir des résultats.</p>
+      <a href="#contact" class="btn-primary">Travaillons ensemble</a>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-label">Stratégie</div>
+      <div class="pillar-sub">Vision claire, exécution précise</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-label">Leadership</div>
+      <div class="pillar-sub">Mobiliser, décider, inspirer</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-label">Résultats</div>
+      <div class="pillar-sub">Mesurables, durables, concrets</div>
+    </div>
+  </div>
+
+  <!-- À QUI JE M'ADRESSE -->
+  <section class="audience" id="about">
+    <div class="section-inner">
+      <div class="audience-text">
+        <h2>PME, OBNL, startups&nbsp;: vous avez des défis. J'ai des solutions.</h2>
+        <p>Que vous dirigiez une équipe en croissance, traversiez une transformation organisationnelle ou cherchiez à clarifier votre cap stratégique — Boss Coaching vous apporte la structure et la rigueur nécessaires pour avancer avec confiance.</p>
+        <p style="margin-top:1rem;">Chaque mandat est conçu sur mesure. Pas de recettes génériques, pas de gabarits préfabriqués — une approche ancrée dans votre réalité.</p>
+      </div>
+      <img
+        src="https://static.wixstatic.com/media/0ad256_04c1f6f2a6254d30a3a3d0cf00373801~mv2.png/v1/crop/x_0,y_0,w_2062,h_620/fill/w_980,h_295,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/0ad256_04c1f6f2a6254d30a3a3d0cf00373801~mv2.png"
+        alt="Équipe en réunion stratégique"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="mission">
+    <div class="section-inner">
+      <div class="mission-quote">
+        "Une précision sans compromis au service de votre croissance."
+      </div>
+      <div class="mission-body">
+        <h2>Mission &amp; vision</h2>
+        <p>Notre méthodologie transforme les structures organisationnelles complexes en moteurs de croissance efficaces. Nous croyons aux stratégies à fort impact où chaque décision est exécutée avec une alignement rigoureux et des standards élevés.</p>
+        <p style="margin-top:1rem;">Chaque intervention repose sur une analyse clinique, une communication directe et un engagement ferme envers vos résultats — pas envers le confort du statu quo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <div class="services-header">
+        <h2>Services experts</h2>
+        <p>Six leviers d'intervention pour propulser votre organisation vers ses objectifs.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon"></div>
+          <h3>Croissance stratégique</h3>
+          <p>Planification stratégique rigoureuse conçue pour faire évoluer votre organisation avec précision et résultats mesurables.</p>
+          <a href="#contact" class="service-link">En savoir plus</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"></div>
+          <h3>Efficacité opérationnelle</h3>
+          <p>Workflows qui éliminent les frictions et optimisent la performance à chaque niveau de l'organisation.</p>
+          <a href="#contact" class="service-link">En savoir plus</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"></div>
+          <h3>Intelligence de marché</h3>
+          <p>Analyse de marché approfondie pour rester en avance sur vos concurrents et identifier les opportunités avant les autres.</p>
+          <a href="#contact" class="service-link">En savoir plus</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"></div>
+          <h3>Gestion des risques</h3>
+          <p>Évaluation des risques pour identifier et neutraliser les vulnérabilités avant qu'elles n'affectent votre trajectoire.</p>
+          <a href="#contact" class="service-link">En savoir plus</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"></div>
+          <h3>Évolution organisationnelle</h3>
+          <p>Accompagnement au changement pour les leaders qui veulent garder un avantage concurrentiel dans un environnement en mutation.</p>
+          <a href="#contact" class="service-link">En savoir plus</a>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon"></div>
+          <h3>Identité de marque</h3>
+          <p>Construction d'une marque qui commande l'attention grâce à une logique visuelle et stratégique cohérente et distinctive.</p>
+          <a href="#contact" class="service-link">En savoir plus</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-inner">
+      <h2>Ce que disent nos clients</h2>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="testi-text">"Leur intervention stratégique a redéfini notre efficacité opérationnelle. La précision dans l'exécution est incomparable."</p>
+          <div class="testi-author">Marcus Thorne — COO, Vectra Corp.</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">"Une maîtrise absolue de la stratégie de croissance. Ils architecturent le succès avec un focus implacable sur l'impact réel."</p>
+          <div class="testi-author">Sarah Jenkins — Fondatrice, Apex Solutions</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">"Précis, clinique et efficace. Le niveau de vision stratégique fourni est devenu notre plus grand avantage compétitif."</p>
+          <div class="testi-author">David Chen — Directeur général</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="section-inner">
+      <h2>Élevez votre stratégie.</h2>
+      <p>Prenons le temps d'explorer ensemble comment Boss Coaching peut transformer vos défis en résultats.</p>
+      <a href="mailto:info@bosscoaching.ca" class="btn-primary">Démarrer une consultation</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">Boss<span>Coaching</span></a>
+        <p>Accompagnement stratégique et leadership pour dirigeants, équipes et organisations au Québec.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@bosscoaching.ca">info@bosscoaching.ca</a></li>
+          <li><a href="tel:+15559003225">+1 (555) 900-3225</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Boss Coaching — Tous droits réservés</span>
+      <span><a href="#" style="color:inherit;text-decoration:none;">Politique de confidentialité</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>
