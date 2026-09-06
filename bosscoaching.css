@@ -1,15 +1,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --black:   #0A0A0A;
-  --card:    #141414;
-  --border:  #222222;
-  --gold:    #C8A96E;
-  --gold-dk: #A8893E;
+  --black:     #0A0A0A;
+  --test:      #C8A96E;
+  --card:      #141414;
+  --border:    #222222;
+  --gold:      #DC1225;
+  --gold-dk:   #A8893E;
   --red-brand: #DC1225;
-  --white:   #FFFFFF;
-  --muted:   #888888;
-  --text:    #D4D4D4;
+  --white:     #FFFFFF;
+  --muted:     #888888;
+  --text:      #D4D4D4;
 }
 
 html { scroll-behavior: smooth; }
