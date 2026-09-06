@@ -101,7 +101,7 @@ nav {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://static.wixstatic.com/media/0ad256_68e5c42614404a1dba2fa052c795c501~mv2.png/v1/fill/w_980,h_552,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/ChatGPT%20Image%20Aug%2023%2C%202026%2C%2008_36_12%20PM.png');
+  background-image: url('Resources/Background1.png');
   background-size: cover;
   background-position: center top;
   filter: brightness(0.25);
