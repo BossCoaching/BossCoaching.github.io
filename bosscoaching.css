@@ -1,8 +1,20 @@
+/* ==========================================================================
+   BOSS COACHING — Feuille de style
+   1. Base
+   2. Navigation
+   3. Composants communs (titres, boutons)
+   4. Sections actives (hero, audience, howto, citation, CTA, footer)
+   5. Responsive
+   6. Sections désactivées / classes inutilisées (à la fin pour éviter
+      les conflits d'héritage)
+   ========================================================================== */
+
+
+/* ── 1. BASE ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --black:     #0A0A0A;
-  --test:      #C8A96E;
   --card:      #141414;
   --border:    #222222;
   --gold:      #C8A96E;
@@ -25,7 +37,41 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── NAV ── */
+section { padding: 1rem 4rem; }
+
+.section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+
+/* ── 2. NAVIGATION ── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -34,7 +80,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 4rem;
-  background: rgba(10,10,10,0.92);
+  background: rgba(10, 10, 10, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -83,8 +129,8 @@ nav {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  cursor: pointer;
   text-decoration: none;
+  cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
 
@@ -93,15 +139,14 @@ nav {
   color: var(--white);
 }
 
-/* ── HAMBURGER MOBILE ── */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
-  cursor: pointer;
+  padding: 4px;
   background: none;
   border: none;
-  padding: 4px;
+  cursor: pointer;
 }
 
 .hamburger span {
@@ -112,7 +157,86 @@ nav {
   transition: transform 0.3s, opacity 0.3s;
 }
 
-/* ── HERO ── */
+
+/* ── 3. COMPOSANTS COMMUNS ── */
+
+/* Boutons */
+.btn-primary {
+  display: inline-block;
+  background: var(--red-brand);
+  color: var(--black);
+  padding: 0.85rem 2.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.btn-primary:hover { color: var(--white); }
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+  padding: 0.9rem 1.75rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* En-tête de section : ligne rouge + titre entouré de deux lignes */
+.title-line {
+  width: 20px;
+  height: 3px;
+  background: var(--red-brand);
+  margin: 1rem auto 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;   /* épouse la largeur du titre */
+  margin: 0 auto;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;            /* espace entre le titre et les lignes */
+}
+
+.section-header h3 {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--white);
+  text-align: center;
+  white-space: nowrap;  /* le titre reste sur une seule ligne */
+}
+
+
+/* ── 4. SECTIONS ACTIVES ── */
+
+/* HERO */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -128,7 +252,6 @@ nav {
   background-image: url('Resources/Background1.png');
   background-size: cover;
   background-position: center top;
-  filter: brightness(1);
 }
 
 .hero-grid {
@@ -152,90 +275,34 @@ nav {
   .hero-grid { animation: none; }
 }
 
-.hero-eyebrow {
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--red-brand);
-  margin-bottom: 1.5rem;
-}
-
 .hero-content {
-  max-width: 720px;
   flex: 2;
+  max-width: 720px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem; /* contrôle l'espacement entre h1, p, boutons, pillars */
-}
-
-
-.hero-image {
-  flex: 1;   /* stays the same */
-  max-width: 480px;
-  display: flex;
-  justify-content: flex-end;
-}
-.hero-image img {
-  width: 100%;
-  height: auto;
-  display: block;
+  gap: 2rem;
 }
 
 .hero h1 {
-  font-family: 'Roboto', serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 3.4rem;
-  font-weight: 999;
+  font-weight: 900;
   text-transform: uppercase;
   line-height: 1.1;
   color: var(--white);
   text-align: left;
-  margin-bottom: 0; /* était 1.25rem — géré par gap maintenant */
+  margin-bottom: 0;
 }
 
 .hero h1 .text-red { color: var(--red-brand); }
 
 .hero p {
   font-size: 1.05rem;
-  color: var(--text);
   line-height: 1.8;
+  color: var(--text);
   text-align: left;
   margin: 0 0 2rem;
-}
-
-.btn-primary {
-  display: inline-block;
-  background: var(--red-brand);
-  color: var(--black);
-  padding: 0.85rem 2.25rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.btn-primary:hover {
-  background: var(--red-brand);
-  color: var(--white);
-}
-
-.btn-outline {
-  border: 1px solid var(--white);
-  color: var(--white);
-  background: transparent;
-  padding: 0.9rem 1.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.2s, color 0.2s;
-}
-.btn-outline:hover {
-  background: var(--white);
-  color: var(--black);
 }
 
 .hero-buttons {
@@ -244,28 +311,34 @@ nav {
   margin-bottom: 3rem;
 }
 
-/* Compact inline pillars, left-aligned as a group */
+/* Piliers du hero */
 .pillars-row {
   display: flex;
-  justify-content: space-between; /* était sans valeur = espacement fixe de 2.5rem */
+  justify-content: space-between;
   width: 100%;
-  max-width: 480px; /* ajustez selon la largeur désirée */
+  max-width: 480px;
   margin-top: 1rem;
 }
 
 .pillar-inline {
+  flex: 1;
+  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 2.5rem; /* ajustez selon l'espacement voulu */
+}
+
+.pillar-inline--leadership {
+  padding: 0 10px;
+  border-left: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
 }
 
 .pillar-icon {
   width: 72px;
   height: 72px;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
   background-color: var(--red-brand);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
@@ -273,262 +346,359 @@ nav {
   mask-size: contain;
   -webkit-mask-position: center;
   mask-position: center;
-  flex-shrink: 0;
 }
 
-.pillar-icon--target { 
-  -webkit-mask-image: url("Resources/Target.svg"); 
-  mask-image: url("Resources/Target.svg"); 
-  transform: translateX(12px); /* ajustez le px selon l'écart observé */
-}
-.pillar-icon--chess  { 
-  -webkit-mask-image: url("Resources/chess.svg");  
-  mask-image: url("Resources/chess.svg"); 
-  transform: translateX(24px); /* ajustez le px selon l'écart observé */
+.pillar-icon--target {
+  -webkit-mask-image: url("Resources/Target.svg");
+  mask-image: url("Resources/Target.svg");
 }
 
-.pillar-icon--result { 
-  -webkit-mask-image: url("Resources/result.svg"); 
-  mask-image: url("Resources/result.svg"); 
-  transform: translateX(24px); /* ajustez le px selon l'écart observé */
+.pillar-icon--chess {
+  -webkit-mask-image: url("Resources/chess.svg");
+  mask-image: url("Resources/chess.svg");
 }
 
-.pillar-icon img { display: none; }
+.pillar-icon--result {
+  -webkit-mask-image: url("Resources/growth.svg");
+  mask-image: url("Resources/growth.svg");
+}
 
 .pillar-label {
-  font-family: 'Playfair Display', serif;
   margin-top: 10%;
+  font-family: 'Playfair Display', serif;
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--white);
   letter-spacing: 0.04em;
+  color: var(--white);
   text-align: center;
-  
 }
 
-.pillar-sub {
-  font-size: 0.72rem;
-  color: var(--muted);
-  text-align: center; 
-}
-
-/* ── SECTIONS COMMONS ── */
-section { padding: 6rem 4rem; }
-
-.section-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-h1 {
-  font-family: 'Roboto', serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
-
-h2 {
+.pillar-text {
+  margin-top: auto;
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.04em;
   color: var(--white);
-  line-height: 1.2;
-  margin-bottom: 1rem;
+  text-align: center;
 }
 
-h3 {
-  font-family: 'Roboto', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-}
 
-/* ── À QUI ── */
+/* À QUI JE M'ADRESSE */
 .audience {
   position: relative;
+  background-color: #111111;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  background-color: #222222;
 }
 
-.audience-icon {
-  width: 36px;
-  height: 2px;
-  background: var(--red-brand);
-  margin-bottom: 1.5rem;
-  margin: 0 auto 1.5rem; /* centre horizontalement */
-}
-
-.audience-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
-}
-
-.audience h3 {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: var(--red-brand);
-  line-height: 1.4;
-}
-
-.audience-header p {
-  max-width: 520px;
-  margin: 0.75rem auto 0;
-  font-size: 0.95rem;
-}
 .audience-text {
   position: relative;
   z-index: 1;
   text-align: center;
 }
 
-/* ── MISSION ── */
-.mission .section-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
+.audience h2 {
+  font-size: 2rem;
+  color: var(--red-brand);
+  text-align: center;
 }
 
-.mission-quote {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 400;
+.audience p {
+  margin-bottom: 1rem;
   color: var(--white);
-  line-height: 1.4;
-  border-left: 2px solid var(--red-brand);
-  padding-left: 1.5rem;
+  text-align: center;
 }
 
-.mission-body p { font-size: 0.95rem; line-height: 1.85; }
+.audience-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1080px;
+  margin: 4rem auto 0;
+}
 
-/* ── COMMENT ── */
+.audience-inline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* Séparateurs gris uniquement entre les colonnes */
+.audience-inline:not(:last-child) {
+  border-right: 1px solid var(--muted);
+}
+
+.audience-icon-block {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+  background-color: var(--red-brand);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.audience-icon-block--leader {
+  -webkit-mask-image: url("Resources/manager2.svg");
+  mask-image: url("Resources/manager2.svg");
+}
+
+.audience-icon-block--team {
+  -webkit-mask-image: url("Resources/team.svg");
+  mask-image: url("Resources/team.svg");
+}
+
+.audience-icon-block--orgs {
+  -webkit-mask-image: url("Resources/growth.svg");
+  mask-image: url("Resources/growth.svg");
+}
+
+.audience-icon-block--obnl {
+  -webkit-mask-image: url("Resources/handshake.png");
+  mask-image: url("Resources/handshake.png");
+}
+
+/* Libellés et sous-textes partagés (audience + howto) */
+.audience-label,
+.howto-label {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+
+.audience-subtext,
+.howto-subtext {
+  max-width: 140px;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+
+/* COMMENT ÇA FONCTIONNE */
 .howto {
   position: relative;
-  background-image: url('Resources/1to5.png');
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+/* Arrière-plan : image + voile noir */
+.howto .howto-bg {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  background-image: url('Resources/howto.jpg');
   background-size: cover;
   background-position: center top;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  z-index: 1;
 }
 
-/* ── SERVICES ── */
-.services {
-  background: var(--card);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+.howto .howto-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: black;
+  opacity: 0.75;
+  z-index: 1;
 }
 
-.services-header {
-  text-align: center;
-  margin-bottom: 3.5rem;
+/* Grands chiffres 01 à 04 */
+.howto .howto-1to5 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.services-header p {
-  max-width: 520px;
-  margin: 0.75rem auto 0;
-  font-size: 0.95rem;
+.howto .howto-1to5 h1 {
+  margin: 0;
+  font-family: 'Impact', sans-serif;
+  font-size: 10rem;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(136, 136, 136, 0.15);
 }
 
-.services-grid {
+/* Contenu */
+.howto .howto-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 2rem;
+  color: #ffffff;
+}
+
+.howto .section-inner { text-align: center; }
+
+.howto .section-header {
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.howto .title-row { gap: 1.5rem; }
+
+.howto .howto-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+  transform: translateY(30%);
 }
 
-.service-card {
-  background: var(--card);
-  padding: 2.5rem 2rem;
-  transition: background 0.2s;
+.howto .grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.service-card:hover { background: #1c1c1c; }
-
-.service-icon {
-  width: 36px;
-  height: 2px;
-  background: var(--red-brand);
-  margin-bottom: 1.5rem;
+.howto .grid-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--red-brand);
+  /* Taille de l'icône dans le rond : ajuster le pourcentage */
+  -webkit-mask-size: 60%;
+  mask-size: 60%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
-.service-card p {
-  font-size: 0.88rem;
-  line-height: 1.75;
-  margin-top: 0.5rem;
+.howto-icon-analyser {
+  -webkit-mask-image: url("Resources/loupe.png");
+  mask-image: url("Resources/loupe.png");
 }
 
-.service-link {
-  display: inline-block;
-  margin-top: 1.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.howto-icon-planifier {
+  -webkit-mask-image: url("Resources/result.svg");
+  mask-image: url("Resources/result.svg");
+}
+
+.howto-icon-agir {
+  -webkit-mask-image: url("Resources/launch.png");
+  mask-image: url("Resources/launch.png");
+}
+
+.howto-icon-evaluer {
+  -webkit-mask-image: url("Resources/Target.svg");
+  mask-image: url("Resources/Target.svg");
+}
+
+
+/* CITATION */
+.mos-quote {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--red-brand);
+  background: linear-gradient(
+    to right,
+    #000000 0%,
+    #000000 50%,
+    #1a0000 70%,
+    #660000 85%,
+    var(--red-brand) 100%
+  );
+}
+
+/* Même conteneur que .hero-grid pour aligner les bords */
+.blank {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mos-quote-text {
+  position: relative;
+  flex: 0 0 75%;
+  max-width: 75%;
+  padding-top: 2rem;
+}
+
+/* Guillemet géant décoratif */
+.mos-quote-text::before {
+  content: "“";
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  font-family: serif;
+  font-size: 8rem;
+  line-height: 1;
   color: var(--red-brand);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
+  pointer-events: none;
 }
 
-.service-link:hover { border-color: var(--red-brand); }
-
-/* ── TESTIMONIALS ── */
-.testimonials .section-inner { text-align: center; }
-
-.testimonials h2 { margin-bottom: 3rem; }
-
-.testi-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+.mos-quote-image {
+  flex: 0 0 25%;
+  max-width: 25%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.testi-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 2rem 1.75rem;
-  text-align: left;
+.mos-quote-image img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.testi-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.75;
-  color: var(--text);
-  margin-bottom: 1.25rem;
-}
 
-.testi-author {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--red-brand);
-}
-
-/* ── CTA ── */
+/* CTA */
 .cta-section {
   background: var(--card);
   border-top: 1px solid var(--border);
   text-align: center;
 }
 
-.cta-section h2 { margin-bottom: 0.75rem; }
+.cta-section h2 { text-align: left; }
+
 .cta-section p { margin-bottom: 2rem; }
 
-/* ── FOOTER ── */
+
+/* FOOTER */
 footer {
+  padding: 3rem 4rem;
   background: #050505;
   border-top: 1px solid var(--border);
-  padding: 3rem 4rem;
 }
 
 .footer-inner {
@@ -539,22 +709,26 @@ footer {
   gap: 3rem;
 }
 
-.footer-brand .nav-logo { display: block; margin-bottom: 1rem; font-size: 1.1rem; }
+.footer-brand .nav-logo {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
 
 .footer-brand p {
+  max-width: 280px;
   font-size: 0.82rem;
   line-height: 1.75;
   color: var(--muted);
-  max-width: 280px;
 }
 
 .footer-col h4 {
+  margin-bottom: 1rem;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--white);
-  margin-bottom: 1rem;
 }
 
 .footer-col ul { list-style: none; }
@@ -574,22 +748,24 @@ footer {
   max-width: 1080px;
   margin: 2.5rem auto 0;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid var(--border);
   font-size: 0.75rem;
   color: var(--muted);
 }
 
-/* ── RESPONSIVE ── */
+
+/* ── 5. RESPONSIVE ── */
 @media (max-width: 900px) {
   nav { padding: 1.25rem 1.5rem; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
+
   section { padding: 4rem 1.5rem; }
 
-  .hero { padding: 8rem 1.5rem 4rem; min-height: auto; }
+  .hero { min-height: auto; padding: 8rem 1.5rem 4rem; }
 
   .hero-grid {
     flex-direction: column;
@@ -598,14 +774,6 @@ footer {
   }
 
   .hero-content { max-width: 100%; }
-
-  .hero-image {
-    max-width: 100%;
-    justify-content: center;
-    order: -1; /* image above text on mobile; drop this line if you prefer text first */
-  }
-  .hero-image img { max-width: 320px; }
-
   .hero-buttons { flex-wrap: wrap; }
 
   .pillars-row {
@@ -613,17 +781,308 @@ footer {
     gap: 1.25rem;
   }
 
-  .audience .section-inner,
-  .mission .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .pillar-inline--leadership {
+    padding: 1.25rem 0;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid var(--muted);
+    border-bottom: 1px solid var(--muted);
+  }
 
-  .audience img { aspect-ratio: 16/9; }
+  .audience-row {
+    flex-direction: column;
+    gap: 2rem;
+  }
 
-  .services-grid { grid-template-columns: 1fr; }
+  .audience-inline:not(:last-child) {
+    padding-bottom: 2rem;
+    border-right: none;
+    border-bottom: 1px solid var(--muted);
+  }
 
-  .testi-grid { grid-template-columns: 1fr; }
+  .howto { padding: 0 1.5rem 4rem; }
+  .howto .howto-1to5 { display: none; }
+
+  .howto .howto-grid {
+    grid-template-columns: repeat(2, 1fr);
+    transform: none;
+  }
+
+  .mos-quote {
+    height: auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .blank { flex-direction: column; }
+
+  .mos-quote-text,
+  .mos-quote-image {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
 
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
 
   footer { padding: 2.5rem 1.5rem; }
 }
+
+
+/* ==========================================================================
+   6. SECTIONS DÉSACTIVÉES / CLASSES INUTILISÉES
+   Rien de ce qui suit n'est utilisé par le HTML actuel. Placé à la fin pour
+   ne pas interférer avec les règles actives.
+   ========================================================================== */
+
+/* ── MISSION (section commentée dans le HTML) ── */
+.mission .section-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.mission-quote {
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--red-brand);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--white);
+}
+
+.mission-body p {
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+
+/* ── SERVICES (section commentée dans le HTML) ── */
+.services {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.services-header {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.services-header p {
+  max-width: 520px;
+  margin: 0.75rem auto 0;
+  font-size: 0.95rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.service-card {
+  padding: 2.5rem 2rem;
+  background: var(--card);
+  transition: background 0.2s;
+}
+
+.service-card:hover { background: #1c1c1c; }
+
+.service-card p {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.75;
+}
+
+.service-icon {
+  width: 36px;
+  height: 2px;
+  margin-bottom: 1.5rem;
+  background: var(--red-brand);
+}
+
+.service-link {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red-brand);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.service-link:hover { border-color: var(--red-brand); }
+
+/* ── TÉMOIGNAGES (aucun HTML correspondant) ── */
+.testimonials .section-inner { text-align: center; }
+
+.testimonials h2 { margin-bottom: 3rem; }
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.testi-card {
+  padding: 2rem 1.75rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.testi-text {
+  margin-bottom: 1.25rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.testi-author {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red-brand);
+}
+
+/* ── AUTRES CLASSES INUTILISÉES ── */
+.title {
+  position: relative;
+  background-color: #222222;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-eyebrow {
+  margin-bottom: 1.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-brand);
+}
+
+.hero-image {
+  flex: 1;
+  max-width: 480px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pillar-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.audience-header {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.audience-header p {
+  max-width: 520px;
+  margin: 0.75rem auto 0;
+  font-size: 0.95rem;
+}
+
+/* ── RESPONSIVE des blocs désactivés ── */
+@media (max-width: 900px) {
+  .mission .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .services-grid,
+  .testi-grid { grid-template-columns: 1fr; }
+
+  .hero-image {
+    max-width: 100%;
+    justify-content: center;
+    order: -1;
+  }
+
+  .hero-image img { max-width: 320px; }
+}
+
+
+/* ==========================================================================
+   ARCHIVE : HTML commenté retiré de index.html
+   À recoller dans le HTML (avant la section CTA) pour réactiver.
+   ==========================================================================
+
+   <section class="mission">
+     <div class="section-inner">
+       <div class="mission-quote">
+         « On ne devient pas gestionnaire simplement parce qu’on est expert dans son domaine. »
+       </div>
+       <div class="mission-body">
+         <h2>Mission</h2>
+         <p>Notre mission est d’accompagner les gestionnaires dans le développement de leurs compétences afin qu’ils puissent exercer leur rôle avec confiance, structure et impact.<br>
+         Parce qu’être un expert dans son domaine ne prépare pas nécessairement à gérer une équipe, nous offrons les connaissances, les outils et le soutien nécessaires pour transformer l’expertise professionnelle en leadership efficace, humain et durable.</p>
+       </div>
+     </div>
+   </section>
+
+   <section class="services" id="services">
+     <div class="section-inner">
+       <div class="services-header">
+         <h2>Services experts</h2>
+         <p>Six leviers d'intervention pour propulser votre organisation vers ses objectifs.</p>
+       </div>
+       <div class="services-grid">
+         <div class="service-card">
+           <div class="service-icon"></div>
+           <h3>Croissance stratégique</h3>
+           <p>Planification stratégique rigoureuse conçue pour faire évoluer votre organisation avec précision et résultats mesurables.</p>
+           <a href="#contact" class="service-link">En savoir plus</a>
+         </div>
+         <div class="service-card">
+           <div class="service-icon"></div>
+           <h3>Efficacité opérationnelle</h3>
+           <p>Workflows qui éliminent les frictions et optimisent la performance à chaque niveau de l'organisation.</p>
+           <a href="#contact" class="service-link">En savoir plus</a>
+         </div>
+         <div class="service-card">
+           <div class="service-icon"></div>
+           <h3>Intelligence de marché</h3>
+           <p>Analyse de marché approfondie pour rester en avance sur vos concurrents et identifier les opportunités avant les autres.</p>
+           <a href="#contact" class="service-link">En savoir plus</a>
+         </div>
+         <div class="service-card">
+           <div class="service-icon"></div>
+           <h3>Gestion des risques</h3>
+           <p>Évaluation des risques pour identifier et neutraliser les vulnérabilités avant qu'elles n'affectent votre trajectoire.</p>
+           <a href="#contact" class="service-link">En savoir plus</a>
+         </div>
+         <div class="service-card">
+           <div class="service-icon"></div>
+           <h3>Évolution organisationnelle</h3>
+           <p>Accompagnement au changement pour les leaders qui veulent garder un avantage concurrentiel dans un environnement en mutation.</p>
+           <a href="#contact" class="service-link">En savoir plus</a>
+         </div>
+         <div class="service-card">
+           <div class="service-icon"></div>
+           <h3>Identité de marque</h3>
+           <p>Construction d'une marque qui commande l'attention grâce à une logique visuelle et stratégique cohérente et distinctive.</p>
+           <a href="#contact" class="service-link">En savoir plus</a>
+         </div>
+       </div>
+     </div>
+   </section>
+   ========================================================================== */
