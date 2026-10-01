@@ -372,7 +372,7 @@ h3 {
   position: relative;
   z-index: 1;
   text-align: center;
-  color: var(--red-brand)
+  color: var(--red-brand);
   line-height: 1.4;
 }
 
