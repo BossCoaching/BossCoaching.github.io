@@ -23,6 +23,10 @@
   --white:     #FFFFFF;
   --muted:     #888888;
   --text:      #D4D4D4;
+
+  /* Alignement commun : hero, citation, CTA */
+  --gutter:      2rem;
+  --content-max: 1200px;
 }
 
 html { scroll-behavior: smooth; }
@@ -243,7 +247,7 @@ nav {
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 6rem 2rem;
+  padding: 6rem var(--gutter);
 }
 
 .hero-bg {
@@ -257,7 +261,7 @@ nav {
 .hero-grid {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--content-max);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -621,11 +625,11 @@ nav {
   position: relative;
   width: 100%;
   height: 350px;
-  padding: 4rem 2rem;
+  padding: 4rem var(--gutter);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--red-brand);
+  box-shadow: inset 0 0 0 1px var(--red-brand);
   background: linear-gradient(
     to right,
     #000000 0%,
@@ -640,7 +644,7 @@ nav {
 .blank {
   position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--content-max);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -660,7 +664,7 @@ nav {
   content: "“";
   position: absolute;
   top: -20px;
-  left: -10px;
+  left: 0;
   font-family: serif;
   font-size: 8rem;
   line-height: 1;
@@ -684,10 +688,13 @@ nav {
 
 /* CTA */
 .cta-section {
+  padding-inline: var(--gutter);
   background: var(--card);
   border-top: 1px solid var(--border);
   text-align: center;
 }
+
+.cta-section .section-inner { max-width: var(--content-max); }
 
 .cta-section h2 { text-align: left; }
 
@@ -759,6 +766,8 @@ footer {
 
 /* ── 5. RESPONSIVE ── */
 @media (max-width: 900px) {
+  :root { --gutter: 1.5rem; }
+
   nav { padding: 1.25rem 1.5rem; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
