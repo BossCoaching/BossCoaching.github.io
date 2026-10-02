@@ -648,7 +648,7 @@ nav {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Centre verticalement le texte par défaut */
   gap: 2rem;
 }
 
@@ -677,14 +677,15 @@ nav {
   max-width: 25%;
   display: flex;
   justify-content: flex-end;
+  align-self: flex-end; /* Force l'image à se coller au bas de la section */
+  z-index: 2;
 }
-
+/* Application du masque directement sur la balise img */
 .mos-quote-image img {
-  width: 100%;
+  width: 173%;
   height: auto;
   display: block;
 }
-
 
 /* CTA */
 .cta-section {
@@ -695,7 +696,7 @@ nav {
 }
 
 .cta-section .section-inner { max-width: var(--content-max); }
-
+.section h1 .text-red { color: var(--red-brand); }
 .cta-section h2 { text-align: left; }
 
 .cta-section p { margin-bottom: 2rem; }
@@ -1029,6 +1030,84 @@ footer {
   .hero-image img { max-width: 320px; }
 }
 
+/* CTA */
+.cta-section {
+  position: relative; /* Indispensable pour ancrer la couronne */
+  z-index: 1;         /* Crée un contexte d'empilement propre */
+  padding-inline: var(--gutter);
+  border-top: 1px solid var(--border);
+  
+  /* Votre dégradé linéaire ou couleur de fond d'origine */
+  background: var(--card); 
+}
+
+.cta-section .section-inner { 
+  max-width: var(--content-max); 
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto; /* 2 lignes de haut */
+  gap: 2rem;
+  align-items: center; /* Centre verticalement les éléments sur leur ligne */
+}
+
+.cta-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;           /* Couvre toute la surface du CTA */
+  z-index: -1;        /* Se place derrière le texte pour ne pas bloquer les clics */
+  pointer-events: none; /* Laisse passer les interactions de la souris */
+  
+  /* On applique l'image ici */
+  background-image: url("Resources/couronne.png");
+  background-position: right center; /* Complètement à droite, centré verticalement */
+  background-repeat: no-repeat;
+  background-size: contain; /* Conserve les proportions de la couronne */
+  
+  /* Le filtre s'applique désormais UNIQUEMENT sur l'image */
+  filter: brightness(1.8); 
+}
+
+.cta-section h1 {
+  grid-column: 1 / span 2; /* Démarre à la colonne 1 et s'étale sur 2 colonnes */
+  grid-row: 1 / span 1;    /* S'assure de rester uniquement sur la ligne 1 */
+  
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--white);
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.cta-section h1 .text-red { 
+  color: var(--red-brand); 
+}
+
+/* Paragraphe : Ligne 2, colonne 1 uniquement */
+.cta-section p { 
+  grid-column: 1;
+  grid-row: 2;
+  text-align: left;
+  margin-bottom: 0; /* Nettoyage de la marge pour un alignement parfait */
+}
+
+/* Conteneur Bouton : Ligne 2, colonne 2 uniquement */
+.cta-btn-container {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: flex-end; /* Aligne le bouton complètement sur le côté droit de la 2e colonne */
+  width: 100%;
+}
+
+.cta-section .btn-primary {
+  display: inline-block;
+  white-space: nowrap; /* Évite que le texte du bouton se coupe */
+}
 
 /* ==========================================================================
    ARCHIVE : HTML commenté retiré de index.html
