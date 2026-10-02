@@ -6,45 +6,76 @@
   <title>Accueil | Boss Coaching</title>
   <meta name="description" content="Boss Coaching accompagne les dirigeants, équipes et organisations pour transformer le chaos en clarté, prendre les bonnes décisions et obtenir des résultats.">
 
+  <!-- Polices Google : Playfair Display (titres, libellés), Inter (texte courant)
+       et Roboto (h1 et h3, graisses 700 et 900). -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+
+  <!-- Feuille de style unique du site (même dossier que ce fichier) -->
   <link rel="stylesheet" href="bosscoaching.css">
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAVIGATION : barre fixe en haut de l'écran (position: fixed, fond flou).
+       Desktop : logo, liens, bouton Contact.
+       900px et moins : liens et bouton masqués, le hamburger prend le relais. -->
   <nav>
+    <!-- Logo : renvoie en haut de la page. Largeur fixée à 207px dans le CSS. -->
     <a href="#" class="nav-logo">
       <img src="Resources/BossCoashing_logo.png" alt="Boss Coaching">
     </a>
+
+    <!-- Liens de navigation : visibles sur desktop. Sous 900px, ils n'apparaissent
+         que lorsque <nav> porte la classe is-open (ajoutée par le script en bas).
+         #about = section « À qui je m'adresse », #contact = section CTA. -->
     <ul class="nav-links">
       <li><a href="#">Accueil</a></li>
-      <li><a href="#services">Services</a></li>
       <li><a href="#about">À propos</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
+
+    <!-- Bouton Contact (contour rouge) : desktop seulement. Sur mobile, c'est le
+         lien « Contact » de la liste ci-dessus qui le remplace. -->
     <a href="#contact" class="nav-cta">Contact</a>
-    <button class="hamburger" aria-label="Menu">
+
+    <!-- Bouton menu, visible sous 900px. Le script en bas de page bascule is-open
+         sur <nav> et met à jour aria-expanded ; le CSS transforme les trois barres
+         (les <span>) en croix quand aria-expanded vaut "true". -->
+    <button class="hamburger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO : section d'accueil, au moins la hauteur de l'écran, contenu centré
+       verticalement. Le titre h1 est le seul titre principal du hero. -->
   <section class="hero">
+    <!-- Image de fond (Background1.png), décorative : calque absolu qui couvre
+         toute la section, derrière le contenu. -->
     <div class="hero-bg" aria-hidden="true"></div>
 
+    <!-- Conteneur centré (1200px max), même largeur que la citation, ce qui aligne
+         le texte des deux sections. Joue l'animation fadeUp au chargement. -->
     <div class="hero-grid">
+      <!-- Colonne de texte (720px max) : titre, paragraphe, boutons, piliers -->
       <div class="hero-content">
         <h1>Problèmes complexes,<br><span class="text-red">Solutions simples.</span></h1>
 
         <p>Boss Coaching accompagne les dirigeants, équipes et organisations pour transformer le chaos en clarté, prendre les bonnes décisions et obtenir des résultats.</p>
 
+        <!-- Boutons : le principal (rouge) mène au CTA. Le bouton secondaire
+             « Nos services » (contour blanc) est désactivé tant que la section
+             Services est commentée plus bas. -->
         <div class="hero-buttons">
           <a href="#contact" class="btn-primary">Travaillons ensemble →</a>
+          <!-- BOUTON DÉSACTIVÉ : à réactiver avec la section Services
           <a href="#services" class="btn-outline">Nos services</a>
+          -->
         </div>
 
-        <!-- Piliers -->
+        <!-- Trois piliers côte à côte (empilés sous 900px). Chaque icône est un <div>
+             vide : son dessin vient d'un fichier SVG utilisé comme masque dans le CSS
+             (classe pillar-icon--…). Le pilier du milieu a des filets gris de chaque côté. -->
         <div class="pillars-row">
           <div class="pillar-inline">
             <div class="pillar-icon pillar-icon--target"></div>
@@ -68,9 +99,12 @@
     </div>
   </section>
 
-  <!-- À QUI JE M'ADRESSE -->
+  <!-- À QUI JE M'ADRESSE : fond gris très foncé, texte centré. id="about" est la
+       cible du lien « À propos » de la nav et du footer. -->
   <section class="audience" id="about">
     <div class="section-inner">
+      <!-- En-tête de section : un trait rouge centré, puis une rangée trait / titre / trait.
+           Même structure que dans la section « Comment ça fonctionne ». -->
       <div class="section-header">
         <div class="title-line"></div>
         <div class="title-row">
@@ -80,12 +114,17 @@
         </div>
       </div>
 
+      <!-- Accroche. Les styles en ligne sur les h2 l'emportent sur le CSS :
+           1re ligne en blanc, 2e ligne en rouge. -->
       <div class="audience-text">
         <h2 style="color: var(--white); margin-top: 1rem;">PME, OBNL, STARTUPS :</h2>
         <h2 style="color: var(--red-brand); margin-top: 0;">VOUS AVEZ DES DÉFIS. J'AI DES SOLUTIONS.</h2>
         <p>Que vous soyez en croissance, en transformation ou en mode crise,<br>je vous aide à passer au prochain niveau.</p>
       </div>
 
+      <!-- Quatre colonnes de publics cibles (empilées sous 900px), séparées par des
+           filets gris. Le style en ligne fixe la marge haute à 2rem (le CSS prévoit 4rem).
+           Les icônes sont des masques SVG/PNG colorés en rouge par le CSS. -->
       <div class="audience-row" style="margin: 2rem auto 0;">
         <div class="audience-inline">
           <div class="audience-icon-block audience-icon-block--leader"></div>
@@ -114,18 +153,21 @@
     </div>
   </section>
 
-  <!-- COMMENT ÇA FONCTIONNE -->
+  <!-- COMMENT ÇA FONCTIONNE : 4 étapes sur une image de fond assombrie. -->
   <section class="howto">
-    <!-- Arrière-plan : grands chiffres -->
+    <!-- Arrière-plan : image howto.jpg recouverte d'un voile noir à 75 %. Il contient
+         aussi les 4 grands chiffres (Impact 10rem, gris très pâle), purement décoratifs
+         et masqués sous 900px. Ce sont des <span> : ils ne sont pas des titres. -->
     <div class="howto-bg" aria-hidden="true">
       <div class="howto-1to5">
-        <h1>01</h1><h1>02</h1><h1>03</h1><h1>04</h1>
+        <span>01</span><span>02</span><span>03</span><span>04</span>
       </div>
     </div>
 
-    <!-- Premier plan : contenu -->
+    <!-- Premier plan : contenu au-dessus de l'image (z-index 3) -->
     <div class="howto-content">
       <div class="section-inner">
+        <!-- En-tête de section (même structure que « À qui je m'adresse ») -->
         <div class="section-header">
           <div class="title-line"></div>
           <div class="title-row">
@@ -135,6 +177,9 @@
           </div>
         </div>
 
+        <!-- Grille de 4 étapes (2 colonnes sous 900px). Elle est décalée visuellement
+             vers le bas de 30 % de sa hauteur (translateY) sur desktop. Icône = masque
+             rouge ; libellé en majuscules ; description grise de 140px de large max. -->
         <div class="howto-grid">
           <div class="grid-item">
             <div class="grid-icon howto-icon-analyser"></div>
@@ -164,20 +209,30 @@
     </div>
   </section>
 
-  <!-- CITATION -->
+  <!-- CITATION : bande de 350px, dégradé du noir (gauche) vers le rouge (droite).
+       Le grand guillemet rouge décoratif est ajouté par le CSS (::before), en plus
+       des guillemets « » du texte. -->
   <section class="mos-quote" id="quote">
-    <div class="blank">
-      <!-- Texte (75 % de la largeur) -->
+    <!-- Même conteneur centré que .hero-grid (1200px max) : le texte démarre au
+         même x que le titre du hero. -->
+    <div class="mos-quote-grid">
+      <!-- Texte : aligné à gauche, 55 % de la largeur sur desktop, 100 % sous 900px -->
       <div class="mos-quote-text">
         « On ne devient pas gestionnaire simplement parce qu’on est expert dans son domaine. »
       </div>
 
-      <!-- Image (25 % de la largeur) -->
-    <div class="mos-quote-image">
-      <img src="Resources/MOS.png" alt="Illustration">
-    </div>
+      <!-- Photo (MOS.png, image de fond) : ancrée en bas à droite, dessinée au-dessus
+           du texte, peut dépasser vers le haut. Masquée sous 900px. -->
+      <div class="mos-quote-image">
+        <div class="mos-quote-image-content"></div>
+      </div>
     </div>
   </section>
+
+  <!-- SECTIONS DÉSACTIVÉES : Mission et Services. Pour les réactiver, retirer les
+       marqueurs de commentaire et placer les blocs ici, entre la citation et le CTA.
+       Le CSS correspondant est dans la section 6 de bosscoaching.css. Le lien
+       « Nos services » du hero et celui du footer visent id="services". -->
 
   <!-- MISSION (désactivée)
   <section class="mission">
@@ -188,8 +243,7 @@
       <div class="mission-body">
         <h2>Mission</h2>
         <p>Notre mission est d’accompagner les gestionnaires dans le développement de leurs compétences afin qu’ils puissent exercer leur rôle avec confiance, structure et impact.<br>
-        
-        </p>
+        Parce qu’être un expert dans son domaine ne prépare pas nécessairement à gérer une équipe, nous offrons les connaissances, les outils et le soutien nécessaires pour transformer l’expertise professionnelle en leadership efficace, humain et durable.</p>
       </div>
     </div>
   </section>
@@ -251,40 +305,50 @@
   </section>
   -->
 
-  <!-- CTA -->
-<section class="cta-section" id="contact">
-  <div class="section-inner">
-    <!-- Ligne 1 : Prend les colonnes 1 et 2 -->
-    <h1>PRÊT À PASSER AU PROCHAIN NIVEAU?<br><span class="text-red">PARLONS-EN..</span></h1>
-    
-    <!-- Ligne 2, Colonne 1 : Le paragraphe -->
-    <p>Prenons le temps d'explorer ensemble comment Boss Coaching peut transformer vos défis en résultats.</p>
-    
-    <!-- Ligne 2, Colonne 2 : Conteneur pour aligner le bouton à droite -->
-    <div class="cta-btn-container">
-      <a href="mailto:info@bosscoaching.ca" class="btn-primary">Démarrer une consultation</a>
-    </div>
-  </div>
-</section>
+  <!-- CTA : id="contact" est la cible des liens « Contact » et du bouton du hero.
+       Desktop : grille de 3 colonnes × 2 lignes. Sous 900px : une seule colonne.
+       L'image de la couronne est un fond ajouté par le CSS (::before). -->
+  <section class="cta-section" id="contact">
+    <div class="section-inner">
+      <!-- Titre : ligne 1, colonnes 1 à 2. « PARLONS-EN.. » est en rouge. -->
+      <h1>PRÊT À PASSER AU PROCHAIN NIVEAU?<br><span class="text-red">PARLONS-EN..</span></h1>
 
-  <!-- FOOTER -->
+      <!-- Paragraphe : ligne 2, colonne 1 -->
+      <p>Prenons le temps d'explorer ensemble comment Boss Coaching peut transformer vos défis en résultats.</p>
+
+      <!-- Bouton : ligne 2, colonne 2, poussé à droite sur desktop. Ouvre le client
+           de courriel vers mosabourin@icloud.com (même adresse que le footer). -->
+      <div class="cta-btn-container">
+        <a href="mailto:mosabourin@icloud.com" class="btn-primary">Démarrer une consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER : fond quasi noir. Trois colonnes sur desktop (marque plus large),
+       empilées sous 900px. -->
   <footer>
     <div class="footer-inner">
+      <!-- Colonne 1 : logo texte (« Boss » en rouge, « Coaching » en blanc via le
+           <span>) et phrase de présentation -->
       <div class="footer-brand">
         <a href="#" class="nav-logo">Boss<span>Coaching</span></a>
         <p>Accompagnement stratégique et leadership pour dirigeants, équipes et organisations au Québec.</p>
       </div>
 
+      <!-- Colonne 2 : liens de navigation. #services pointe vers une section
+           désactivée, donc sans cible. -->
       <div class="footer-col">
         <h4>Navigation</h4>
         <ul>
           <li><a href="#">Accueil</a></li>
-          <li><a href="#services">Services</a></li>
+          <!-- <li><a href="#services">Services</a></li> -->
           <li><a href="#about">À propos</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
 
+      <!-- Colonne 3 : coordonnées (courriel, téléphone, LinkedIn). Le courriel
+           est le même que celui du bouton du CTA. -->
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
@@ -295,11 +359,34 @@
       </div>
     </div>
 
+    <!-- Barre du bas : copyright à gauche, lien de confidentialité à droite
+         (le lien est un « # » : aucune page cible pour l'instant) -->
     <div class="footer-bottom">
       <span>© 2026 Boss Coaching — Tous droits réservés</span>
       <span><a href="#" style="color: inherit; text-decoration: none;">Politique de confidentialité</a></span>
     </div>
   </footer>
+
+  <!-- Menu mobile : doit rester ici, après tout le HTML, pour que <nav> et
+       .hamburger existent quand le script s'exécute. -->
+  <script>
+    const nav = document.querySelector('nav');
+    const btn = document.querySelector('.hamburger');
+
+    // Clic sur le hamburger : ouvre ou ferme le menu et met à jour aria-expanded
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open);
+    });
+
+    // Clic sur un lien du menu : referme le menu
+    nav.querySelectorAll('.nav-links a').forEach(a =>
+      a.addEventListener('click', () => {
+        nav.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      })
+    );
+  </script>
 
 </body>
 </html>

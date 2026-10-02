@@ -1,36 +1,57 @@
 /* ==========================================================================
    BOSS COACHING — Feuille de style
-   1. Base
-   2. Navigation
-   3. Composants communs (titres, boutons)
-   4. Sections actives (hero, audience, howto, citation, CTA, footer)
-   5. Responsive
-   6. Sections désactivées / classes inutilisées (à la fin pour éviter
-      les conflits d'héritage)
+   1. Base (réinitialisation, variables, titres)
+   2. Navigation (barre fixe)
+   3. Composants communs (boutons, en-tête de section)
+   4. Sections : hero, audience, howto, citation, CTA (1/2), footer
+   5. Responsive (max-width 900px ; le CTA a son propre bloc responsive
+      en section 6)
+   6. Blocs désactivés + suite du CTA (2/2, ACTIF — voir l'avertissement
+      avant ce bloc)
+   Les règles les plus basses du fichier gagnent à spécificité égale :
+   c'est pourquoi le CTA (2/2) en section 6 écrase le CTA (1/2) et passe
+   aussi après le responsive.
    ========================================================================== */
 
 
 /* ── 1. BASE ── */
+
+/* Réinitialisation : supprime marges et paddings par défaut du navigateur
+   et inclut bordures et paddings dans la largeur des éléments. */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --black:     #0A0A0A;
-  --card:      #141414;
-  --border:    #222222;
-  --gold:      #C8A96E;
-  --gold-dk:   #A8893E;
-  --red-brand: #DC1225;
+  /* Couleurs de base */
+  --black:     #0A0A0A;   /* fond du site */
+  --card:      #141414;   /* fond de la section CTA */
+  --border:    #222222;   /* filets et bordures discrets */
+  --gold:      #C8A96E;   /* NON UTILISÉE */
+  --gold-dk:   #A8893E;   /* NON UTILISÉE */
+  --red-brand: #DC1225;   /* rouge de la marque : icônes, accents, boutons */
   --white:     #FFFFFF;
-  --muted:     #888888;
-  --text:      #D4D4D4;
+  --muted:     #888888;   /* texte secondaire, séparateurs */
+  --text:      #D4D4D4;   /* texte courant */
+  --red-deep:  #1A0000;   /* 2e étape du dégradé de la citation */
+  --red-dark:  #660000;   /* 3e étape du dégradé de la citation */
+  --red-hover: #B80F1F;   /* rouge plus foncé : survol du bouton principal */
 
-  /* Alignement commun : hero, citation, CTA */
-  --gutter:      2rem;
-  --content-max: 1200px;
+  /* Largeurs communes au hero, à la citation et au CTA : leur contenu
+     démarre donc au même endroit à l'écran */
+  --gutter:      2rem;      /* marge latérale (1.5rem sous 900px) */
+  --content-max: 1200px;    /* largeur maximale du contenu */
+  --content-min: 720px;     /* NON UTILISÉE (les variables CSS ne
+                               fonctionnent pas dans les media queries) */
 }
 
-html { scroll-behavior: smooth; }
+/* Défilement animé vers les ancres (#contact, #about…).
+   scroll-padding-top laisse 6rem en haut pour que la cible ne passe pas
+   sous la nav fixe. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
 
+/* Fond noir, texte gris clair, Inter léger 16px, interligne aéré */
 body {
   background: var(--black);
   color: var(--text);
@@ -41,13 +62,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Espacement par défaut de toutes les sections : 1rem en haut et en bas,
+   4rem sur les côtés. Les classes de section le remplacent. */
 section { padding: 1rem 4rem; }
 
+/* Conteneur de contenu centré, 1080px max (audience, howto) */
 .section-inner {
   max-width: 1080px;
   margin: 0 auto;
 }
 
+/* Titres par défaut : taille fluide entre 1.8rem et 2.8rem.
+   h1 en Roboto, h2 en Playfair Display. */
 h1 {
   font-family: 'Roboto', sans-serif;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
@@ -66,6 +92,8 @@ h2 {
   margin-bottom: 1rem;
 }
 
+/* h3 par défaut (Roboto 1.15rem). Dans .section-header, il est redéfini
+   en Playfair Display 1.2rem. */
 h3 {
   font-family: 'Roboto', sans-serif;
   font-size: 1.15rem;
@@ -76,6 +104,9 @@ h3 {
 
 
 /* ── 2. NAVIGATION ── */
+
+/* Barre fixée en haut de l'écran : fond noir à 92 % avec flou, filet bas.
+   Logo à gauche, liens au centre, bouton Contact à droite. */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -89,6 +120,8 @@ nav {
   border-bottom: 1px solid var(--border);
 }
 
+/* Logo : sert au logo image de la nav et au logo texte du footer
+   (rouge, avec <span> en blanc) */
 .nav-logo {
   font-family: 'Playfair Display', serif;
   font-size: 1.25rem;
@@ -98,20 +131,24 @@ nav {
   text-decoration: none;
 }
 
+/* Partie du logo texte affichée en blanc ("Coaching" dans le footer) */
 .nav-logo span { color: var(--white); }
 
+/* Image du logo : largeur fixe de 207px */
 .nav-logo img {
   width: 207px;
   height: auto;
   display: block;
 }
 
+/* Liste de liens de la nav : en ligne, sans puces */
 .nav-links {
   display: flex;
   gap: 2.5rem;
   list-style: none;
 }
 
+/* Liens de la nav : gris, majuscules espacées, deviennent blancs au survol */
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
@@ -124,6 +161,7 @@ nav {
 
 .nav-links a:hover { color: var(--white); }
 
+/* Bouton Contact de la nav : contour rouge, texte rouge */
 .nav-cta {
   background: transparent;
   border: 1px solid var(--red-brand);
@@ -138,11 +176,14 @@ nav {
   transition: background 0.2s, color 0.2s;
 }
 
+/* Au survol : fond rouge plein, texte blanc */
 .nav-cta:hover {
   background: var(--red-brand);
   color: var(--white);
 }
 
+/* Bouton menu (3 barres) : masqué sur desktop, affiché sous 900px.
+   Le style du menu ouvert est dans la media query 900px. */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -153,6 +194,7 @@ nav {
   cursor: pointer;
 }
 
+/* Les trois barres blanches du bouton menu */
 .hamburger span {
   display: block;
   width: 22px;
@@ -164,22 +206,25 @@ nav {
 
 /* ── 3. COMPOSANTS COMMUNS ── */
 
-/* Boutons */
+/* Bouton principal : fond rouge, texte blanc. Au survol, le fond devient
+   un rouge plus foncé. */
 .btn-primary {
   display: inline-block;
   background: var(--red-brand);
-  color: var(--black);
+  color: var(--white);
   padding: 0.85rem 2.25rem;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: background 0.2s;
 }
 
-.btn-primary:hover { color: var(--white); }
+.btn-primary:hover { background: var(--red-hover); }
 
+/* Bouton secondaire : contour blanc, fond transparent. Au survol, il
+   s'inverse (fond blanc, texte noir). */
 .btn-outline {
   display: inline-block;
   background: transparent;
@@ -199,7 +244,8 @@ nav {
   color: var(--black);
 }
 
-/* En-tête de section : ligne rouge + titre entouré de deux lignes */
+/* Petit trait rouge (20px × 3px), centré. Utilisé deux fois par en-tête :
+   un au-dessus du titre, et un de chaque côté du titre dans .title-row. */
 .title-line {
   width: 20px;
   height: 3px;
@@ -207,22 +253,27 @@ nav {
   margin: 1rem auto 1.5rem;
 }
 
+/* En-tête de section : colonne centrée (trait au-dessus, puis la rangée
+   trait / titre / trait). Sa largeur épouse celle du titre. */
 .section-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: fit-content;   /* épouse la largeur du titre */
+  width: fit-content;
   margin: 0 auto;
 }
 
+/* Rangée trait / titre / trait, centrée, 15px entre chaque élément */
 .title-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;            /* espace entre le titre et les lignes */
+  gap: 15px;
 }
 
+/* Titre d'en-tête de section : Playfair Display 1.2rem, blanc, centré,
+   toujours sur une seule ligne (peut déborder sur petit écran) */
 .section-header h3 {
   position: relative;
   z-index: 1;
@@ -234,13 +285,17 @@ nav {
   line-height: 1.4;
   color: var(--white);
   text-align: center;
-  white-space: nowrap;  /* le titre reste sur une seule ligne */
+  white-space: nowrap;
 }
 
 
-/* ── 4. SECTIONS ACTIVES ── */
+/* ── 4. SECTIONS ── */
 
 /* HERO */
+
+/* Section d'accueil : au moins la hauteur de l'écran, contenu centré
+   verticalement, ce qui déborde est coupé. Le padding haut de 6rem
+   dégage la nav fixe. */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -250,6 +305,8 @@ nav {
   padding: 6rem var(--gutter);
 }
 
+/* Calque d'image de fond (Background1.png) sur toute la section, derrière
+   le contenu, cadré sur le haut de l'image */
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -258,6 +315,9 @@ nav {
   background-position: center top;
 }
 
+/* Conteneur du contenu du hero : centré, 1200px max (--content-max), même
+   largeur que .mos-quote-grid, d'où l'alignement des deux. Joue l'animation
+   fadeUp (1 s) au chargement. */
 .hero-grid {
   position: relative;
   width: 100%;
@@ -270,15 +330,20 @@ nav {
   animation: fadeUp 1s ease both;
 }
 
+/* Animation d'entrée : apparition en fondu avec une montée de 28px */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Désactive l'animation pour les personnes qui ont demandé moins de
+   mouvement dans leur système */
 @media (prefers-reduced-motion: reduce) {
   .hero-grid { animation: none; }
 }
 
+/* Colonne de texte du hero : 720px max, éléments empilés avec 2rem
+   d'écart. Le flex: 2 ne sert que s'il y a une 2e colonne à côté. */
 .hero-content {
   flex: 2;
   max-width: 720px;
@@ -288,9 +353,11 @@ nav {
   gap: 2rem;
 }
 
+/* Titre du hero : Roboto 900 majuscules, taille fluide de 2rem à 3.4rem
+   selon la largeur de l'écran, aligné à gauche */
 .hero h1 {
   font-family: 'Roboto', sans-serif;
-  font-size: 3.4rem;
+  font-size: clamp(2rem, 6vw, 3.4rem);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 1.1;
@@ -299,8 +366,11 @@ nav {
   margin-bottom: 0;
 }
 
+/* Partie du titre en rouge ("Solutions simples.") */
 .hero h1 .text-red { color: var(--red-brand); }
 
+/* Paragraphe d'intro : 1.05rem, aligné à gauche. Sa marge basse de 2rem
+   s'ajoute au gap de .hero-content. */
 .hero p {
   font-size: 1.05rem;
   line-height: 1.8;
@@ -309,13 +379,15 @@ nav {
   margin: 0 0 2rem;
 }
 
+/* Rangée des deux boutons, 1rem d'écart. La marge basse de 3rem s'ajoute
+   au gap de .hero-content. */
 .hero-buttons {
   display: flex;
   gap: 1rem;
   margin-bottom: 3rem;
 }
 
-/* Piliers du hero */
+/* Rangée des 3 piliers (Stratégie, Leadership, Résultats) : 480px max */
 .pillars-row {
   display: flex;
   justify-content: space-between;
@@ -324,6 +396,7 @@ nav {
   margin-top: 1rem;
 }
 
+/* Un pilier : colonne centrée, largeur égale aux autres (flex: 1) */
 .pillar-inline {
   flex: 1;
   display: flex;
@@ -332,12 +405,16 @@ nav {
   text-align: center;
 }
 
+/* Pilier du milieu : filets gris à gauche et à droite pour séparer les
+   trois colonnes */
 .pillar-inline--leadership {
   padding: 0 10px;
   border-left: 1px solid var(--muted);
   border-right: 1px solid var(--muted);
 }
 
+/* Icône de pilier : carré de 72px rouge. L'image n'apparaît qu'à travers
+   le mask-image (forme de l'icône), donc l'icône s'affiche en rouge. */
 .pillar-icon {
   width: 72px;
   height: 72px;
@@ -352,6 +429,7 @@ nav {
   mask-position: center;
 }
 
+/* Forme de chaque icône de pilier (fichier utilisé comme masque) */
 .pillar-icon--target {
   -webkit-mask-image: url("Resources/Target.svg");
   mask-image: url("Resources/Target.svg");
@@ -367,6 +445,8 @@ nav {
   mask-image: url("Resources/growth.svg");
 }
 
+/* Titre du pilier : Playfair 0.85rem, majuscules, blanc. La marge haute de
+   10 % est calculée sur la largeur de la colonne. */
 .pillar-label {
   margin-top: 10%;
   font-family: 'Playfair Display', serif;
@@ -378,6 +458,8 @@ nav {
   text-align: center;
 }
 
+/* Sous-texte du pilier : Playfair 0.72rem blanc. margin-top: auto le
+   colle en bas de la colonne, ce qui aligne les trois sous-textes. */
 .pillar-text {
   margin-top: auto;
   font-family: 'Playfair Display', serif;
@@ -390,6 +472,8 @@ nav {
 
 
 /* À QUI JE M'ADRESSE */
+
+/* Section : fond gris très foncé (#111) avec filets haut et bas */
 .audience {
   position: relative;
   background-color: #111111;
@@ -397,24 +481,31 @@ nav {
   border-bottom: 1px solid var(--border);
 }
 
+/* Bloc de titres et de texte d'intro, centré */
 .audience-text {
   position: relative;
   z-index: 1;
   text-align: center;
 }
 
+/* Titres h2 : 2rem, rouge, centrés. Dans le HTML, un style en ligne met
+   la 1re ligne en blanc. */
 .audience h2 {
   font-size: 2rem;
   color: var(--red-brand);
   text-align: center;
 }
 
+/* Paragraphe d'intro : blanc, centré */
 .audience p {
   margin-bottom: 1rem;
   color: var(--white);
   text-align: center;
 }
 
+/* Rangée des 4 colonnes (Gestionnaire, Équipes, Organisations, OBNL).
+   La marge haute de 4rem est remplacée par un style en ligne du HTML
+   (2rem). */
 .audience-row {
   display: flex;
   justify-content: space-between;
@@ -423,6 +514,7 @@ nav {
   margin: 4rem auto 0;
 }
 
+/* Une colonne : largeur égale, contenu centré, 20px de marge intérieure */
 .audience-inline {
   flex: 1;
   display: flex;
@@ -432,11 +524,13 @@ nav {
   text-align: center;
 }
 
-/* Séparateurs gris uniquement entre les colonnes */
+/* Filet gris à droite de chaque colonne sauf la dernière */
 .audience-inline:not(:last-child) {
   border-right: 1px solid var(--muted);
 }
 
+/* Icône de colonne : même principe que .pillar-icon (72px rouge vu à
+   travers un masque) */
 .audience-icon-block {
   width: 72px;
   height: 72px;
@@ -451,6 +545,7 @@ nav {
   mask-position: center;
 }
 
+/* Forme de chaque icône (fichier utilisé comme masque) */
 .audience-icon-block--leader {
   -webkit-mask-image: url("Resources/manager2.svg");
   mask-image: url("Resources/manager2.svg");
@@ -471,7 +566,8 @@ nav {
   mask-image: url("Resources/handshake.png");
 }
 
-/* Libellés et sous-textes partagés (audience + howto) */
+/* Libellé de colonne (audience) et d'étape (howto) : Playfair 1rem,
+   majuscules, blanc. Style partagé par les deux sections. */
 .audience-label,
 .howto-label {
   margin: 0;
@@ -483,6 +579,8 @@ nav {
   color: var(--white);
 }
 
+/* Description sous le libellé : gris, 0.9rem, centrée, 140px de large
+   maximum. Style partagé par audience et howto. */
 .audience-subtext,
 .howto-subtext {
   max-width: 140px;
@@ -494,6 +592,10 @@ nav {
 
 
 /* COMMENT ÇA FONCTIONNE */
+
+/* Section : 500px minimum, contenu empilé et centré, démarre en haut.
+   overflow: hidden coupe tout ce qui dépasse. Pas de padding vertical
+   (le contenu a ses propres marges). */
 .howto {
   position: relative;
   min-height: 500px;
@@ -505,7 +607,8 @@ nav {
   padding: 0 2rem;
 }
 
-/* Arrière-plan : image + voile noir */
+/* Calque d'arrière-plan : image howto.jpg sur toute la section, cadrée en
+   haut. Contient aussi les grands chiffres. */
 .howto .howto-bg {
   position: absolute;
   inset: 0;
@@ -516,6 +619,7 @@ nav {
   z-index: 1;
 }
 
+/* Voile noir à 75 % d'opacité qui assombrit l'image de fond */
 .howto .howto-bg::before {
   content: '';
   position: absolute;
@@ -525,7 +629,8 @@ nav {
   z-index: 1;
 }
 
-/* Grands chiffres 01 à 04 */
+/* Rangée des 4 grands chiffres décoratifs : centrée dans la section,
+   au-dessus du voile, et ignore les clics (pointer-events: none) */
 .howto .howto-1to5 {
   position: absolute;
   top: 50%;
@@ -541,7 +646,10 @@ nav {
   pointer-events: none;
 }
 
-.howto .howto-1to5 h1 {
+/* Un grand chiffre : Impact 10rem, gris à 15 % d'opacité (quasi invisible).
+   Ce sont des <span> dans le HTML (placés dans un flex, ils se comportent
+   comme des blocs). */
+.howto .howto-1to5 span {
   margin: 0;
   font-family: 'Impact', sans-serif;
   font-size: 10rem;
@@ -550,7 +658,7 @@ nav {
   color: rgba(136, 136, 136, 0.15);
 }
 
-/* Contenu */
+/* Contenu au premier plan (z-index 3, au-dessus du voile et des chiffres) */
 .howto .howto-content {
   position: relative;
   z-index: 3;
@@ -560,15 +668,22 @@ nav {
   color: #ffffff;
 }
 
+/* Texte centré dans le contenu */
 .howto .section-inner { text-align: center; }
 
+/* En-tête : 1rem entre le trait du haut et la rangée du titre, 3rem
+   sous l'en-tête */
 .howto .section-header {
   gap: 1rem;
   margin-bottom: 3rem;
 }
 
+/* Écart de 1.5rem (au lieu de 15px) entre le titre et ses traits */
 .howto .title-row { gap: 1.5rem; }
 
+/* Grille des 4 étapes en 4 colonnes. translateY(30%) la décale visuellement
+   vers le bas sans changer la hauteur de la section : le bas peut être
+   coupé par overflow: hidden. */
 .howto .howto-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -578,6 +693,7 @@ nav {
   transform: translateY(30%);
 }
 
+/* Une étape : icône, libellé et description empilés et centrés */
 .howto .grid-item {
   display: flex;
   flex-direction: column;
@@ -585,12 +701,15 @@ nav {
   gap: 1rem;
 }
 
+/* Icône d'étape : zone de 80px, fond rouge visible seulement à travers le
+   masque (réduit à 60 %). On voit donc l'icône en rouge, pas un rond plein :
+   border-radius n'a presque pas d'effet visible. Pour agrandir ou réduire
+   l'icône, change le 60 %. */
 .howto .grid-icon {
   width: 80px;
   height: 80px;
   border-radius: 50%;
   background-color: var(--red-brand);
-  /* Taille de l'icône dans le rond : ajuster le pourcentage */
   -webkit-mask-size: 60%;
   mask-size: 60%;
   -webkit-mask-position: center;
@@ -599,6 +718,7 @@ nav {
   mask-repeat: no-repeat;
 }
 
+/* Forme de chaque icône d'étape (fichier utilisé comme masque) */
 .howto-icon-analyser {
   -webkit-mask-image: url("Resources/loupe.png");
   mask-image: url("Resources/loupe.png");
@@ -621,50 +741,65 @@ nav {
 
 
 /* CITATION */
+
+/* Bande pleine largeur de 350px de haut, contenu centré verticalement.
+   Dégradé de gauche à droite : noir jusqu'à 50 %, puis vers le rouge de la
+   marque. Liseré rouge de 1px à l'intérieur. z-index 2 : passe au-dessus
+   de la section précédente, utile car l'image peut dépasser vers le haut. */
 .mos-quote {
   position: relative;
+  z-index: 2;
   width: 100%;
   height: 350px;
-  padding: 4rem var(--gutter);
+  padding: 0 var(--gutter);
   display: flex;
   align-items: center;
-  justify-content: center;
   box-shadow: inset 0 0 0 1px var(--red-brand);
   background: linear-gradient(
     to right,
     #000000 0%,
     #000000 50%,
-    #1a0000 70%,
-    #660000 85%,
+    var(--red-deep) 70%,
+    var(--red-dark) 85%,
     var(--red-brand) 100%
   );
 }
 
-/* Même conteneur que .hero-grid pour aligner les bords */
-.blank {
+/* Conteneur interne : mêmes largeur max et centrage que .hero-grid, donc
+   le texte démarre au même x que le titre du hero. Il prend toute la
+   hauteur de la bande (align-self: stretch) pour que l'image soit collée
+   au bas. C'est aussi le repère de position de .mos-quote-image. */
+.mos-quote-grid {
   position: relative;
+  align-self: stretch;
   width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  align-items: center; /* Centre verticalement le texte par défaut */
-  gap: 2rem;
+  justify-content: flex-start;
+  align-items: center;
 }
 
+/* Texte de la citation : aligné à gauche, 55 % de la grille au maximum
+   pour laisser la place à l'image (qui occupe 40 % × 150 % = 60 % de la
+   grille, dessinée au-dessus du texte). Passe à 100 % sous 900px, quand
+   l'image est masquée. */
 .mos-quote-text {
   position: relative;
-  flex: 0 0 75%;
-  max-width: 75%;
-  padding-top: 2rem;
+  max-width: 55%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
 
-/* Guillemet géant décoratif */
+/* Grand guillemet rouge décoratif, placé derrière le texte (z-index -1) et
+   qui ne pousse pas le contenu (position absolute) */
 .mos-quote-text::before {
   content: "“";
   position: absolute;
-  top: -20px;
-  left: 0;
+  top: -0.35em;
+  left: -0.04em;
+  z-index: -1;
   font-family: serif;
   font-size: 8rem;
   line-height: 1;
@@ -672,22 +807,36 @@ nav {
   pointer-events: none;
 }
 
+/* Boîte de l'image : ancrée en bas à droite de la grille, 40 % de sa
+   largeur. Elle est dessinée au-dessus du texte (positionnée, plus loin
+   dans le HTML). */
 .mos-quote-image {
-  flex: 0 0 25%;
-  max-width: 25%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 40%;
   display: flex;
   justify-content: flex-end;
-  align-self: flex-end; /* Force l'image à se coller au bas de la section */
-  z-index: 2;
-}
-/* Application du masque directement sur la balise img */
-.mos-quote-image img {
-  width: 173%;
-  height: auto;
-  display: block;
+  align-items: flex-end;
 }
 
-/* CTA */
+/* Photo (MOS.png) : 150 % de la largeur de la boîte, donc elle déborde
+   vers la gauche. Carrée (aspect-ratio 1/1), donc sa hauteur dépasse
+   celle de la bande et peut monter dans la section du dessus. L'image est
+   collée en bas à droite et remontée de 2px. */
+.mos-quote-image-content {
+  width: 150%;
+  aspect-ratio: 1 / 1;
+  transform: translateY(-2px);
+  background: url("Resources/MOS.png") no-repeat bottom right / contain;
+}
+
+
+/* CTA (1/2) — la suite et les règles gagnantes sont en section 6 */
+
+/* Section : fond gris foncé (#141414), filet en haut, texte centré par
+   défaut (le CTA 2/2 aligne ensuite titre et paragraphe à gauche).
+   padding-inline remplace les 4rem de côté de `section`. */
 .cta-section {
   padding-inline: var(--gutter);
   background: var(--card);
@@ -695,20 +844,30 @@ nav {
   text-align: center;
 }
 
+/* Largeur max du contenu (reprise par le CTA 2/2) */
 .cta-section .section-inner { max-width: var(--content-max); }
+
+/* SANS EFFET : aucun élément n'a la classe .section dans le HTML */
 .section h1 .text-red { color: var(--red-brand); }
+
+/* SANS EFFET dans le HTML actuel : le titre du CTA est un h1, pas un h2 */
 .cta-section h2 { text-align: left; }
 
+/* Marge basse de 2rem, annulée par le CTA 2/2 (margin-bottom: 0) */
 .cta-section p { margin-bottom: 2rem; }
 
 
 /* FOOTER */
+
+/* Pied de page : fond quasi noir (#050505), filet en haut */
 footer {
   padding: 3rem var(--gutter);
   background: #050505;
   border-top: 1px solid var(--border);
 }
 
+/* Grille de 3 colonnes (marque plus large : 1.5fr / 1fr / 1fr), centrée,
+   1200px max */
 .footer-inner {
   max-width: var(--content-max);
   margin: 0 auto;
@@ -717,12 +876,14 @@ footer {
   gap: 3rem;
 }
 
+/* Logo texte du footer : en bloc, 1.1rem (au lieu de 1.25rem) */
 .footer-brand .nav-logo {
   display: block;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
 
+/* Phrase de présentation sous le logo : grise, 280px de large maximum */
 .footer-brand p {
   max-width: 280px;
   font-size: 0.82rem;
@@ -730,6 +891,7 @@ footer {
   color: var(--muted);
 }
 
+/* Titre de colonne (Navigation, Contact) : petit, majuscules, blanc */
 .footer-col h4 {
   margin-bottom: 1rem;
   font-size: 0.72rem;
@@ -739,10 +901,12 @@ footer {
   color: var(--white);
 }
 
+/* Liste de liens sans puces */
 .footer-col ul { list-style: none; }
 
 .footer-col li { margin-bottom: 0.5rem; }
 
+/* Liens du footer : gris, rouges au survol */
 .footer-col a {
   font-size: 0.85rem;
   color: var(--muted);
@@ -752,6 +916,8 @@ footer {
 
 .footer-col a:hover { color: var(--red-brand); }
 
+/* Barre du bas (copyright, confidentialité) : filet au-dessus, texte
+   à gauche et lien à droite */
 .footer-bottom {
   max-width: var(--content-max);
   margin: 2.5rem auto 0;
@@ -765,16 +931,48 @@ footer {
 }
 
 
-/* ── 5. RESPONSIVE ── */
+/* ── 5. RESPONSIVE ──
+   S'applique quand l'écran fait 900px de large ou moins.
+   Le CTA (2/2) de la section 6 vient après et n'est PAS adapté ici. */
 @media (max-width: 900px) {
+  /* Marge latérale réduite à 1.5rem pour hero, citation, CTA, footer */
   :root { --gutter: 1.5rem; }
 
+  /* Nav : moins de padding, liens et bouton Contact masqués, bouton menu
+     affiché (il ouvre les liens grâce au JavaScript du HTML) */
   nav { padding: 1.25rem 1.5rem; }
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
 
+  /* Menu ouvert (classe .is-open ajoutée par le JS au clic sur le
+     hamburger) : les liens s'affichent en colonne sous la barre */
+  nav.is-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: rgba(10, 10, 10, 0.97);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Hamburger ouvert : les trois barres forment une croix */
+  .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Padding de toutes les sections : 4rem en haut/bas, 1.5rem sur les côtés */
   section { padding: 4rem 1.5rem; }
 
+  /* Titres d'en-tête de section : retour à la ligne autorisé pour ne pas
+     déborder de l'écran */
+  .section-header h3 { white-space: normal; }
+
+  /* Hero : hauteur selon le contenu, plus de place en haut pour la nav,
+     colonne unique alignée à gauche */
   .hero { min-height: auto; padding: 8rem 1.5rem 4rem; }
 
   .hero-grid {
@@ -786,11 +984,14 @@ footer {
   .hero-content { max-width: 100%; }
   .hero-buttons { flex-wrap: wrap; }
 
+  /* Piliers empilés verticalement */
   .pillars-row {
     flex-direction: column;
     gap: 1.25rem;
   }
 
+  /* Pilier du milieu : filets verticaux remplacés par des filets
+     horizontaux (haut et bas) */
   .pillar-inline--leadership {
     padding: 1.25rem 0;
     border-left: none;
@@ -799,6 +1000,7 @@ footer {
     border-bottom: 1px solid var(--muted);
   }
 
+  /* Audience : colonnes empilées, filet horizontal entre elles */
   .audience-row {
     flex-direction: column;
     gap: 2rem;
@@ -810,6 +1012,8 @@ footer {
     border-bottom: 1px solid var(--muted);
   }
 
+  /* Howto : padding bas de 4rem, grands chiffres masqués, grille en
+     2 colonnes sans décalage */
   .howto { padding: 0 1.5rem 4rem; }
   .howto .howto-1to5 { display: none; }
 
@@ -818,19 +1022,17 @@ footer {
     transform: none;
   }
 
+  /* Citation : hauteur selon le contenu, padding 3rem */
   .mos-quote {
     height: auto;
     padding: 3rem 1.5rem;
   }
 
-  .blank { flex-direction: column; }
+  /* Image masquée : le texte prend toute la largeur */
+  .mos-quote-text  { max-width: 100%; }
+  .mos-quote-image { display: none; }
 
-  .mos-quote-text,
-  .mos-quote-image {
-    flex: 1 1 auto;
-    max-width: 100%;
-  }
-
+  /* Footer : colonnes empilées, barre du bas centrée */
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
 
   .footer-bottom {
@@ -844,12 +1046,14 @@ footer {
 
 
 /* ==========================================================================
-   6. SECTIONS DÉSACTIVÉES / CLASSES INUTILISÉES
-   Rien de ce qui suit n'est utilisé par le HTML actuel. Placé à la fin pour
-   ne pas interférer avec les règles actives.
+   6. BLOCS DÉSACTIVÉS (mission, services, témoignages, classes orphelines),
+   PUIS SUITE DU CTA
+   Tout ce qui suit est inutilisé par le HTML actuel, SAUF le bloc
+   "CTA (2/2)" marqué ACTIF plus bas.
    ========================================================================== */
 
-/* ── MISSION (section commentée dans le HTML) ── */
+/* ── MISSION (section commentée dans le HTML) ──
+   Grille de 2 colonnes : citation à gauche, texte à droite */
 .mission .section-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -857,6 +1061,7 @@ footer {
   align-items: center;
 }
 
+/* Citation avec filet rouge à gauche, Playfair de taille fluide */
 .mission-quote {
   padding-left: 1.5rem;
   border-left: 2px solid var(--red-brand);
@@ -867,18 +1072,22 @@ footer {
   color: var(--white);
 }
 
+/* Texte de la mission : 0.95rem, interligne large */
 .mission-body p {
   font-size: 0.95rem;
   line-height: 1.85;
 }
 
 /* ── SERVICES (section commentée dans le HTML) ── */
+
+/* Fond gris foncé avec filets haut et bas */
 .services {
   background: var(--card);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
+/* Titre et sous-titre de la section, centrés */
 .services-header {
   margin-bottom: 3.5rem;
   text-align: center;
@@ -890,6 +1099,8 @@ footer {
   font-size: 0.95rem;
 }
 
+/* Grille de 3 colonnes ; le fond gris visible dans les écarts de 1px
+   forme les filets entre les cartes */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -898,6 +1109,7 @@ footer {
   border: 1px solid var(--border);
 }
 
+/* Carte de service : fond foncé, légèrement plus clair au survol */
 .service-card {
   padding: 2.5rem 2rem;
   background: var(--card);
@@ -912,6 +1124,7 @@ footer {
   line-height: 1.75;
 }
 
+/* Petit trait rouge au-dessus du titre de la carte */
 .service-icon {
   width: 36px;
   height: 2px;
@@ -919,6 +1132,7 @@ footer {
   background: var(--red-brand);
 }
 
+/* Lien "En savoir plus" : rouge, avec soulignement au survol */
 .service-link {
   display: inline-block;
   margin-top: 1.25rem;
@@ -935,16 +1149,20 @@ footer {
 .service-link:hover { border-color: var(--red-brand); }
 
 /* ── TÉMOIGNAGES (aucun HTML correspondant) ── */
+
+/* Contenu centré, titre avec 3rem de marge basse */
 .testimonials .section-inner { text-align: center; }
 
 .testimonials h2 { margin-bottom: 3rem; }
 
+/* Grille de 3 cartes */
 .testi-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
+/* Carte de témoignage : fond foncé, bordure, texte à gauche */
 .testi-card {
   padding: 2rem 1.75rem;
   background: var(--card);
@@ -952,6 +1170,7 @@ footer {
   text-align: left;
 }
 
+/* Citation en Playfair italique */
 .testi-text {
   margin-bottom: 1.25rem;
   font-family: 'Playfair Display', serif;
@@ -961,6 +1180,7 @@ footer {
   color: var(--text);
 }
 
+/* Auteur : petit, rouge, majuscules */
 .testi-author {
   font-size: 0.75rem;
   font-weight: 600;
@@ -970,6 +1190,8 @@ footer {
 }
 
 /* ── AUTRES CLASSES INUTILISÉES ── */
+
+/* Bandeau de titre gris avec filets haut et bas */
 .title {
   position: relative;
   background-color: #222222;
@@ -977,6 +1199,7 @@ footer {
   border-bottom: 1px solid var(--border);
 }
 
+/* Petite ligne de texte rouge au-dessus du titre du hero */
 .hero-eyebrow {
   margin-bottom: 1.5rem;
   font-size: 0.72rem;
@@ -985,6 +1208,7 @@ footer {
   color: var(--red-brand);
 }
 
+/* Colonne d'image à droite du hero, 480px max */
 .hero-image {
   flex: 1;
   max-width: 480px;
@@ -998,12 +1222,14 @@ footer {
   display: block;
 }
 
+/* Sous-titre gris d'un pilier du hero */
 .pillar-sub {
   font-size: 0.72rem;
   color: var(--muted);
   text-align: center;
 }
 
+/* Titre et sous-titre d'intro de la section audience */
 .audience-header {
   margin-bottom: 3.5rem;
   text-align: center;
@@ -1015,12 +1241,14 @@ footer {
   font-size: 0.95rem;
 }
 
-/* ── RESPONSIVE des blocs désactivés ── */
+/* ── RESPONSIVE des blocs désactivés (900px et moins) ── */
 @media (max-width: 900px) {
+  /* Mission, services et témoignages passent en une colonne */
   .mission .section-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .services-grid,
   .testi-grid { grid-template-columns: 1fr; }
 
+  /* Image du hero : centrée et placée avant le texte, 320px max */
   .hero-image {
     max-width: 100%;
     justify-content: center;
@@ -1030,50 +1258,62 @@ footer {
   .hero-image img { max-width: 320px; }
 }
 
-/* CTA */
+
+/* ==========================================================================
+   ⚠ CTA (2/2) — ACTIF, MALGRÉ SA POSITION DANS LA SECTION « DÉSACTIVÉE »
+   Ces règles sont utilisées par le HTML et s'appliquent après le CTA (1/2)
+   et après le responsive. Leur version mobile est dans le bloc
+   « CTA responsive » juste après.
+   ========================================================================== */
+
+/* Section : position relative pour ancrer l'image de la couronne, z-index 1
+   pour créer son propre empilement. Reprend le fond, le filet haut et le
+   padding du CTA (1/2). */
 .cta-section {
-  position: relative; /* Indispensable pour ancrer la couronne */
-  z-index: 1;         /* Crée un contexte d'empilement propre */
+  position: relative;
+  z-index: 1;
   padding-inline: var(--gutter);
   border-top: 1px solid var(--border);
-  
-  /* Votre dégradé linéaire ou couleur de fond d'origine */
-  background: var(--card); 
+  background: var(--card);
 }
 
-.cta-section .section-inner { 
-  max-width: var(--content-max); 
+/* Grille de 3 colonnes × 2 lignes : titre en haut, paragraphe et bouton en
+   dessous. 1200px max, centrée. */
+.cta-section .section-inner {
+  max-width: var(--content-max);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto; /* 2 lignes de haut */
+  grid-template-rows: auto auto;
   gap: 2rem;
-  align-items: center; /* Centre verticalement les éléments sur leur ligne */
+  align-items: center;
 }
 
+/* Couronne décorative : image de fond sur toute la section, derrière le
+   texte (z-index -1), placée à droite et éclaircie (brightness 1.8). Elle
+   ne bloque pas les clics. */
 .cta-section::before {
   content: "";
   position: absolute;
-  inset: 0;           /* Couvre toute la surface du CTA */
-  z-index: -1;        /* Se place derrière le texte pour ne pas bloquer les clics */
-  pointer-events: none; /* Laisse passer les interactions de la souris */
-  
-  /* On applique l'image ici */
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image: url("Resources/couronne.png");
-  background-position: right center; /* Complètement à droite, centré verticalement */
+  background-position: right center;
   background-repeat: no-repeat;
-  background-size: contain; /* Conserve les proportions de la couronne */
-  
-  /* Le filtre s'applique désormais UNIQUEMENT sur l'image */
-  filter: brightness(1.8); 
+  background-size: contain;
+  filter: brightness(1.8);
 }
 
+/* Titre : ligne 1, colonnes 1 et 2. Roboto 900 majuscules, taille fluide
+   de 1.8rem à 3rem, aligné à gauche. Cible un h1, comme dans le HTML
+   actuel. */
 .cta-section h1 {
-  grid-column: 1 / span 2; /* Démarre à la colonne 1 et s'étale sur 2 colonnes */
-  grid-row: 1 / span 1;    /* S'assure de rester uniquement sur la ligne 1 */
-  
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+
   font-family: 'Roboto', sans-serif;
-  font-size: 2rem;
+  font-size: clamp(1.25rem, 5vw, 2rem);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 1.1;
@@ -1083,30 +1323,55 @@ footer {
   margin-bottom: 0;
 }
 
-.cta-section h1 .text-red { 
-  color: var(--red-brand); 
+/* Partie du titre en rouge ("PARLONS-EN..") */
+.cta-section h1 .text-red {
+  color: var(--red-brand);
 }
 
-/* Paragraphe : Ligne 2, colonne 1 uniquement */
-.cta-section p { 
+/* Paragraphe : ligne 2, colonne 1, aligné à gauche, sans marge basse
+   (annule celle du CTA 1/2) */
+.cta-section p {
   grid-column: 1;
   grid-row: 2;
   text-align: left;
-  margin-bottom: 0; /* Nettoyage de la marge pour un alignement parfait */
+  margin-bottom: 0;
 }
 
-/* Conteneur Bouton : Ligne 2, colonne 2 uniquement */
+/* Conteneur du bouton : ligne 2, colonne 2, bouton poussé à droite */
 .cta-btn-container {
   grid-column: 2;
   grid-row: 2;
   display: flex;
-  justify-content: flex-end; /* Aligne le bouton complètement sur le côté droit de la 2e colonne */
+  justify-content: flex-end;
   width: 100%;
 }
 
+/* Bouton du CTA : le texte ne passe jamais à la ligne */
 .cta-section .btn-primary {
   display: inline-block;
-  white-space: nowrap; /* Évite que le texte du bouton se coupe */
+  white-space: nowrap;
+}
+
+/* ── CTA responsive (900px et moins) ──
+   Placé après le CTA (2/2) pour l'emporter sur lui. */
+@media (max-width: 900px) {
+  /* Une seule colonne : titre, paragraphe puis bouton empilés */
+  .cta-section .section-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 1.5rem;
+  }
+
+  .cta-section h1,
+  .cta-section p,
+  .cta-btn-container {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  /* Bouton aligné à gauche, couronne atténuée pour ne pas gêner le texte */
+  .cta-btn-container { justify-content: flex-start; }
+  .cta-section::before { opacity: 0.3; }
 }
 
 /* ==========================================================================
